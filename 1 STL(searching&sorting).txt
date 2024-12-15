@@ -1,0 +1,233 @@
+#include <iostream>
+#include <list>
+#include <string>
+using namespace std;
+
+class record {
+    list<string> name, dob, phone, ni, code;
+    list<int> number;
+    list<float> cost;
+    list<string>::iterator it1, it2, it3, c, n, k, l;
+    list<int>::iterator no, j1;
+    list<float>::iterator f, i;
+
+public:
+    void getp();
+    void display();
+    void searchp(string);
+    void sortp();
+    void getlist();
+    void displayit();
+    void searchlist();
+    void sortitem();
+};
+
+// Function to get personal records
+void record::getp() {
+    int count;
+    string n, d, p;
+    cout << "Enter the number of members in record: ";
+    cin >> count;
+    for (int i = 1; i <= count; i++) {
+        cout << "Enter name: ";
+        cin >> n;
+        name.push_back(n);
+        cout << "Enter date of birth: ";
+        cin >> d;
+        dob.push_back(d);
+        cout << "Enter phone number: ";
+        cin >> p;
+        phone.push_back(p);
+    }
+}
+
+// Function to display personal records
+void record::display() {
+    it1 = name.begin();
+    it2 = dob.begin();
+    it3 = phone.begin();
+    while (it1 != name.end() && it2 != dob.end() && it3 != phone.end()) {
+        cout << *it1 << "\t" << *it2 << "\t" << *it3 << endl;
+        it1++;
+        it2++;
+        it3++;
+    }
+}
+
+// Function to search personal records
+void record::searchp(string data) {
+    int flag = 0;
+    it1 = name.begin();
+    it2 = dob.begin();
+    it3 = phone.begin();
+    while (it1 != name.end() && it2 != dob.end() && it3 != phone.end()) {
+        if (*it1 == data) {
+            cout << "Record found!" << endl;
+            cout << "D.O.B: " << *it2 << endl;
+            cout << "Phone: " << *it3 << endl;
+            flag = 1;
+            break;
+        }
+        if (*it2 == data) {
+            cout << "Record found!" << endl;
+            cout << "Name: " << *it1 << endl;
+            cout << "Phone: " << *it3 << endl;
+            flag = 1;
+            break;
+        }
+        if (*it3 == data) {
+            cout << "Record found!" << endl;
+            cout << "Name: " << *it1 << endl;
+            cout << "D.O.B: " << *it2 << endl;
+            flag = 1;
+            break;
+        }
+        it1++;
+        it2++;
+        it3++;
+    }
+    if (flag == 0) {
+        cout << "Record not found." << endl;
+    }
+}
+
+// Function to sort personal records
+void record::sortp() {
+    name.sort();
+    dob.sort();
+    phone.sort();
+    cout << "Records sorted." << endl;
+}
+
+// Function to get item records
+void record::getlist() {
+    int c, no;
+    string n;
+    float f;
+    cout << "Enter the number of items: ";
+    cin >> c;
+    for (int i = 1; i <= c; i++) {
+        cout << "Enter item name: ";
+        cin >> n;
+        ni.push_back(n);
+        cout << "Enter item code: ";
+        cin >> n;
+        code.push_back(n);
+        cout << "Enter cost: ";
+        cin >> f;
+        cost.push_back(f);
+        cout << "Enter quantity: ";
+        cin >> no;
+        number.push_back(no);
+    }
+}
+
+// Function to display item records
+void record::displayit() {
+    c = code.begin();
+    n = ni.begin();
+    no = number.begin();
+    f = cost.begin();
+    while (c != code.end() && n != ni.end() && no != number.end() && f != cost.end()) {
+        cout << *c << "\t" << *n << "\t" << *no << "\t" << *f << endl;
+        c++;
+        n++;
+        no++;
+        f++;
+    }
+}
+
+// Function to search item records
+void record::searchlist() {
+    string key;
+    cout << "Enter the item code: ";
+    cin >> key;
+    c = code.begin();
+    n = ni.begin();
+    no = number.begin();
+    f = cost.begin();
+    while (c != code.end()) {
+        if (*c == key) {
+            cout << "Item found!" << endl;
+            cout << "Name: " << *n << endl;
+            cout << "Quantity: " << *no << endl;
+            cout << "Cost: " << *f << endl;
+            return;
+        }
+        c++;
+        n++;
+        no++;
+        f++;
+    }
+    cout << "Item not found!" << endl;
+}
+
+// Function to sort item records
+void record::sortitem() {
+    ni.sort();
+    code.sort();
+    cost.sort();
+    number.sort();
+    cout << "Items sorted." << endl;
+}
+
+int main() {
+    record obj;
+    string key;
+    int ch, chr;
+    char x = 'y';
+    do {
+        cout << "1. Personal record\n2. Item record\nEnter choice: ";
+        cin >> ch;
+        do {
+            if (ch == 1) {
+                cout << "1. Enter details\n2. Display\n3. Search entry\n4. Sort records\nEnter choice: ";
+                cin >> chr;
+                switch (chr) {
+                    case 1:
+                        obj.getp();
+                        break;
+                    case 2:
+                        obj.display();
+                        break;
+                    case 3:
+                        cout << "Enter key to search: ";
+                        cin >> key;
+                        obj.searchp(key);
+                        break;
+                    case 4:
+                        obj.sortp();
+                        break;
+                    default:
+                        cout << "Wrong choice!" << endl;
+                }
+            } else if (ch == 2) {
+                cout << "1. Enter details\n2. Display\n3. Search entry\n4. Sort records\nEnter choice: ";
+                cin >> chr;
+                switch (chr) {
+                    case 1:
+                        obj.getlist();
+                        break;
+                    case 2:
+                        obj.displayit();
+                        break;
+                    case 3:
+                        obj.searchlist();
+                        break;
+                    case 4:
+                        obj.sortitem();
+                        break;
+                    default:
+                        cout << "Wrong choice!" << endl;
+                }
+            } else {
+                cout << "Wrong choice!" << endl;
+            }
+            cout << "Do you wish to continue? (Y/N): ";
+            cin >> x;
+        } while (x == 'y' || x == 'Y');
+        cout << "Do you wish to select another type of record? (Y/N): ";
+        cin >> x;
+    } while (x == 'y' || x == 'Y');
+    return 0;
+}
