@@ -1,0 +1,65 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+class File {
+    string name; // Use string instead of char[]
+    int emp_id;
+    float salary;
+
+public:
+    void accept() {
+        cout << "Enter employee name: ";
+        cin.ignore(); // To clear buffer before getline
+        getline(cin, name);
+        cout << "Enter employee ID: ";
+        cin >> emp_id;
+        cout << "Enter employee salary: ";
+        cin >> salary;
+    }
+
+    void display() const {
+        cout << "\n" << name << "\t" << emp_id << "\t" << salary;
+    }
+};
+
+int main() {
+    File obj[5]; // Array of File objects
+    fstream f;
+    int i, n;
+
+    // Write to file
+    f.open("input.txt", ios::out | ios::binary);
+    if (!f) {
+        cout << "Error opening file for writing!" << endl;
+        return 1;
+    }
+
+    cout << "\nHow many employee records do you want to store? ";
+    cin >> n;
+
+    cout << "\nEnter information of employees:\n";
+    for (i = 0; i < n; i++) {
+        cout << "\nEnter information of employee " << (i + 1) << ":\n";
+        obj[i].accept();
+        f.write((char*)&obj[i], sizeof(obj[i])); // Write object to file
+    }
+    f.close();
+
+    // Read from file
+    f.open("input.txt", ios::in | ios::binary);
+    if (!f) {
+        cout << "Error opening file for reading!" << endl;
+        return 1;
+    }
+
+    cout << "\nReading employee information from file:\n";
+    for (i = 0; i < n; i++) {
+        f.read((char*)&obj[i], sizeof(obj[i])); // Read object from file
+        obj[i].display();
+    }
+    f.close();
+
+    return 0;
+}

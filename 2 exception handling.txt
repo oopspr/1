@@ -1,0 +1,87 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Data {
+    int age;
+    string city;
+    double income;
+    char fw;
+    int validCount = 0;
+
+public:
+    void getAge() {
+        try {
+            cout << "Enter age: ";
+            cin >> age;
+            if (age < 18 || age > 55) {
+                throw age;
+            } else {
+                validCount++;
+            }
+        } catch (int) {
+            cout << "Exception caught: Age should be between 18 and 55 years.\n";
+        }
+    }
+
+    void getCity() {
+        try {
+            cout << "Enter the city you live in: ";
+            cin >> city;
+            if (city == "Pune" || city == "Mumbai" || city == "Bangalore" || city == "Chennai") {
+                validCount++;
+            } else {
+                throw city;
+            }
+        } catch (string) {
+            cout << "Exception caught: City should be either Pune, Mumbai, Bangalore, or Chennai.\n";
+        }
+    }
+
+    void getIncome() {
+        try {
+            cout << "Enter monthly income: ";
+            cin >> income;
+            if (income < 50000 || income > 100000) {
+                throw income;
+            } else {
+                validCount++;
+            }
+        } catch (double) {
+            cout << "Exception caught: Income should be between Rs. 50,000 and Rs. 1,00,000.\n";
+        }
+    }
+
+    void hasFourWheeler() {
+        try {
+            cout << "Do you have a four-wheeler? (Y/N): ";
+            cin >> fw;
+            if (fw == 'Y' || fw == 'y') {
+                validCount++;
+            } else {
+                throw fw;
+            }
+        } catch (char) {
+            cout << "Exception caught: A four-wheeler is not present.\n";
+        }
+    }
+
+    void print() {
+        if (validCount == 4) {
+            cout << "No incorrect data provided. Thanks!\n";
+        } else {
+            cout << "Some input data was invalid. Please try again.\n";
+        }
+    }
+};
+
+int main() {
+    Data obj;
+    obj.getAge();
+    obj.getCity();
+    obj.getIncome();
+    obj.hasFourWheeler();
+    obj.print();
+
+    return 0;
+}

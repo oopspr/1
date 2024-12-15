@@ -1,0 +1,69 @@
+#include <iostream>
+#include <list>
+using namespace std;
+
+class Stack {
+    int a;
+    list<int> s;
+
+public:
+    void push() {
+        cout << "\nEnter a number: ";
+        cin >> a;
+        s.push_back(a);
+    }
+
+    void displayStack() {
+        if (s.empty()) {
+            cout << "\nThe stack is empty.\n";
+            return;
+        }
+        cout << "\nThe elements in the stack are:\n";
+        for (auto itr = s.begin(); itr != s.end(); itr++) {
+            cout << *itr << "\t";
+        }
+        cout << endl;
+    }
+
+    void pop() {
+        if (s.empty()) {
+            cout << "\nThe stack is empty. Nothing to pop.\n";
+            return;
+        }
+        int poppedElement = s.back();
+        s.pop_back();
+        cout << "\nThe element popped out of the stack is: " << poppedElement << endl;
+    }
+};
+
+int main() {
+    Stack p;
+    int choice;
+    char ans;
+    do {
+        cout << "\n1. Add element"
+             << "\n2. Delete element"
+             << "\n3. Display stack elements"
+             << "\nEnter the operation you want to perform: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                p.push();
+                break;
+            case 2:
+                p.pop();
+                break;
+            case 3:
+                p.displayStack();
+                break;
+            default:
+                cout << "\nInvalid choice! Please select a valid option.\n";
+        }
+
+        cout << "\nDo you want to perform any other operation? (Y/N): ";
+        cin >> ans;
+    } while (ans == 'Y' || ans == 'y');
+
+    return 0;
+}

@@ -1,0 +1,171 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Personal {
+protected:
+    string name;
+    string address;
+    string birthDate;
+    int age;
+    string phone;
+    string bloodGroup;
+
+public:
+    void accept1();
+    void display1();
+};
+
+void Personal::accept1() {
+    cout << "\nEnter your name: ";
+    getline(cin, name);
+
+    cout << "\nEnter your age: ";
+    cin >> age;
+    cin.ignore(); // Clear newline from input buffer
+
+    if (age > 18 && age < 50) {
+        cout << "\nEnter your address: ";
+        getline(cin, address);
+
+        cout << "\nEnter your birth date (DD/MM/YY): ";
+        getline(cin, birthDate);
+
+        while (true) {
+            cout << "\nEnter valid mobile number (10 digits): ";
+            getline(cin, phone);
+            if (phone.length() == 10 && phone.find_first_not_of("0123456789") == string::npos)
+                break;
+            cout << "Invalid phone number. Please try again.\n";
+        }
+
+        cout << "\nEnter your blood group: ";
+        getline(cin, bloodGroup);
+    }
+}
+
+void Personal::display1() {
+    cout << "\nName: " << name;
+    cout << "\nAge: " << age;
+    cout << "\nAddress: " << address;
+    cout << "\nBirth Date: " << birthDate;
+    cout << "\nContact No: " << phone;
+    cout << "\nBlood Group: " << bloodGroup;
+}
+
+class Academics {
+protected:
+    string qualification;
+    float hsc;
+    float ssc;
+    string course;
+
+public:
+    void accept2();
+    void display2();
+};
+
+void Academics::accept2() {
+    cout << "\nEnter your qualification: ";
+    getline(cin, qualification);
+
+    while (true) {
+        cout << "\nEnter your HSC percentage: ";
+        cin >> hsc;
+        if (hsc >= 0 && hsc <= 100)
+            break;
+        cout << "Invalid HSC percentage. Please enter a value between 0 and 100.\n";
+    }
+
+    while (true) {
+        cout << "\nEnter your SSC percentage: ";
+        cin >> ssc;
+        if (ssc >= 0 && ssc <= 100)
+            break;
+        cout << "Invalid SSC percentage. Please enter a value between 0 and 100.\n";
+    }
+    cin.ignore(); // Clear newline from input buffer
+
+    cout << "\nEnter additional courses: ";
+    getline(cin, course);
+}
+
+void Academics::display2() {
+    cout << "\nQualification: " << qualification;
+    cout << "\nHSC Percentage: " << hsc;
+    cout << "\nSSC Percentage: " << ssc;
+    cout << "\nAdditional Courses: " << course;
+}
+
+class Professional {
+protected:
+    int experience;
+    string company;
+    string designation;
+    float salary; // Added salary field
+
+public:
+    void accept3();
+    void display3();
+};
+
+void Professional::accept3() {
+    cout << "\nEnter your experience (in years): ";
+    cin >> experience;
+    cin.ignore(); // Clear newline from input buffer
+
+    cout << "\nEnter your current company: ";
+    getline(cin, company);
+
+    cout << "\nEnter your designation: ";
+    getline(cin, designation);
+
+    while (true) {
+        cout << "\nEnter your salary: ";
+        cin >> salary;
+        if (salary >= 0) break;
+        cout << "Salary cannot be negative. Please try again.\n";
+    }
+}
+
+void Professional::display3() {
+    cout << "\nExperience: " << experience;
+    cout << "\nCurrent Company: " << company;
+    cout << "\nDesignation: " << designation;
+    cout << "\nSalary: INR" << salary;
+}
+
+class Biodata : public Personal, public Academics, public Professional {
+public:
+    void accept();
+    void display();
+};
+
+void Biodata::accept() {
+    cout << "\n--- Personal Details ---";
+    Personal::accept1();
+
+    cout << "\n--- Academic Details ---";
+    Academics::accept2();
+
+    cout << "\n--- Professional Details ---";
+    Professional::accept3();
+}
+
+void Biodata::display() {
+    cout << "\n--- Personal Details ---";
+    Personal::display1();
+
+    cout << "\n--- Academic Details ---";
+    Academics::display2();
+
+    cout << "\n--- Professional Details ---";
+    Professional::display3();
+}
+
+int main() {
+    Biodata b;
+    b.accept();
+    b.display();
+    return 0;
+}

@@ -1,0 +1,69 @@
+#include <iostream>
+using namespace std;
+
+template <class T>
+void sortArray(int n) {
+    T* a = new T[n]; // Dynamically allocate array
+    cout << "\nEnter the elements to sort: ";
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+
+    // Selection sort algorithm
+    for (int i = 0; i < n - 1; i++) {
+        int min = i;
+        for (int j = i + 1; j < n; j++) {
+            if (a[j] < a[min]) {
+                min = j;
+            }
+        }
+        if (min != i) {
+            T temp = a[i];
+            a[i] = a[min];
+            a[min] = temp;
+        }
+    }
+
+    // Output the sorted array
+    cout << "\nThe array in sorted order is:\n";
+    for (int i = 0; i < n; i++) {
+        cout << a[i] << "\t";
+    }
+    cout << endl;
+
+    delete[] a; // Free dynamically allocated memory
+}
+
+int main() {
+    int choice;
+    char ans;
+
+    do {
+        cout << "\n1. Integer sort\n2. Float sort\nEnter your choice: ";
+        cin >> choice;
+
+        int n;
+        switch (choice) {
+            case 1:
+                cout << "\nEnter the number of elements to sort: ";
+                cin >> n;
+                sortArray<int>(n); // Call sort for integers
+                break;
+
+            case 2:
+                cout << "\nEnter the number of elements to sort: ";
+                cin >> n;
+                sortArray<float>(n); // Call sort for floats
+                break;
+
+            default:
+                cout << "\nInvalid choice. Please try again.";
+                break;
+        }
+
+        cout << "\nDo you wish to continue (Y/N)? ";
+        cin >> ans;
+    } while (ans == 'Y' || ans == 'y');
+
+    return 0;
+}

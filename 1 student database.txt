@@ -1,0 +1,134 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class DataRecord {  // Changed class name from 'data' to 'DataRecord'
+private:
+    string name;
+    string address;
+    string dob;
+    string cldiv;
+    string lic;
+    int roll;
+    long int phone;
+    static int c;
+
+public:
+    // Default constructor
+    DataRecord() {
+        roll = 0;
+        phone = 0;
+        name = "Name";
+        address = "Address";
+        dob = "DOB";
+        cldiv = "Class and Division";
+        lic = "License No.";
+        cout << "Default Constructor" << endl;
+        c++;
+    }
+
+    // Parameterized constructor
+    DataRecord(int roll, long int phone, string name, string address, string dob, string cldiv, string lic) {
+        cout << "Parameterized Constructor" << endl;
+        this->roll = roll;
+        this->phone = phone;
+        this->name = name;
+        this->address = address;
+        this->dob = dob;
+        this->cldiv = cldiv;
+        this->lic = lic;
+        c++;
+    }
+
+    // Copy constructor
+    DataRecord(DataRecord* obj) {
+        cout << "Copy Constructor Implemented" << endl;
+        this->roll = obj->roll;
+        this->phone = obj->phone;
+        this->name = obj->name;
+        this->address = obj->address;
+        this->dob = obj->dob;
+        this->cldiv = obj->cldiv;
+        this->lic = obj->lic;
+        c++;
+    }
+
+    // Destructor
+    ~DataRecord() {
+        cout << "Destructor Called" << endl;
+    }
+
+    // Static function to get the count of objects
+    static int getcount() {
+        return c;
+    }
+
+    // Function to input data
+    void getdata() {
+        cout << "Enter Roll Number: ";
+        cin >> roll;
+        cout << "Enter Telephone Number: ";
+        cin >> phone;
+        cout << "Enter Name: ";
+        cin.ignore(); // Clear buffer
+        getline(cin, name);
+        cout << "Enter Address: ";
+        getline(cin, address);
+        cout << "Enter D.O.B: ";
+        getline(cin, dob);
+        cout << "Enter Class and Division: ";
+        getline(cin, cldiv);
+        cout << "Enter License Number: ";
+        getline(cin, lic);
+    }
+
+    // Function to display data
+    void show() {
+        cout << "Name: " << name << endl;
+        cout << "Roll Number: " << roll << endl;
+        cout << "Telephone Number: " << phone << endl;
+        cout << "Address: " << address << endl;
+        cout << "Date of Birth: " << dob << endl;
+        cout << "Class and Division: " << cldiv << endl;
+        cout << "License Number: " << lic << endl;
+    }
+};
+
+// Initialize static variable
+int DataRecord::c = 0;
+
+int main() {
+    int num;
+
+    // Default constructor object
+    DataRecord* d1 = new DataRecord();
+    d1->show();
+    delete d1;
+
+    // Parameterized constructor object
+    DataRecord* d2 = new DataRecord(23, 9822794182, "Dhruvatara", "Mahatma Nagar", "22.02.97", "SE A", "MSIN92U");
+    d2->show();
+
+    // Copy constructor object
+    DataRecord* d3 = new DataRecord(d2);
+    d3->show();
+    delete d2;
+
+    // User-defined database
+    cout << "Enter size of database: ";
+    cin >> num;
+    DataRecord dx[num];
+    for (int i = 0; i < num; i++) {
+        cout << "\nEnter details for entry " << (i + 1) << ":" << endl;
+        dx[i].getdata();
+    }
+
+    cout << "\nDisplaying database:" << endl;
+    for (int i = 0; i < num; i++) {
+        cout << "\nEntry " << (i + 1) << ":" << endl;
+        dx[i].show();
+    }
+
+    cout << "\nNumber of constructor calls and total number of objects: " << DataRecord::getcount() << endl;
+    return 0;
+}

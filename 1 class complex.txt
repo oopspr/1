@@ -1,0 +1,103 @@
+#include <iostream>
+using namespace std;
+
+class complex {
+    float x; // Real part
+    float y; // Imaginary part
+
+public:
+    complex() {
+        x = 0;
+        y = 0;
+    }
+
+    complex(float a, float b) {
+        x = a;
+        y = b;
+    }
+
+    // Overloading + operator
+    complex operator+(complex c) {
+        complex temp;
+        temp.x = x + c.x;
+        temp.y = y + c.y;
+        return temp;
+    }
+
+    // Overloading * operator
+    complex operator*(complex c) {
+        complex temp;
+        temp.x = (x * c.x) - (y * c.y);
+        temp.y = (y * c.x) + (x * c.y);
+        return temp;
+    }
+
+    // Friend function to overload << for output
+    friend ostream &operator<<(ostream &out, const complex &d) {
+        out << d.x << " + " << d.y << "i";
+        return out;
+    }
+
+    // Friend function to overload >> for input
+    friend istream &operator>>(istream &input, complex &num) {
+        cout << "Enter real and imaginary parts: ";
+        input >> num.x >> num.y;
+        return input;
+    }
+};
+
+int main() {
+    complex c1, c2, c3, c4;
+    int ch;
+
+    do {
+        cout << "\n=========================";
+        cout << "\n 1. Initialize with default constructor";
+        cout << "\n 2. Accept data";
+        cout << "\n 3. Display numbers";
+        cout << "\n 4. Add numbers";
+        cout << "\n 5. Multiply numbers";
+        cout << "\n 6. Exit";
+        cout << "\n Enter your choice: ";
+        cin >> ch;
+        cout << "=========================";
+
+        switch (ch) {
+            case 1:
+                cout << "\nComplex numbers after initialization:\n";
+                cout << "First: " << c1 << "\nSecond: " << c2 << endl;
+                break;
+
+            case 2:
+                cout << "\nEnter the first complex number:\n";
+                cin >> c1;
+                cout << "Enter the second complex number:\n";
+                cin >> c2;
+                break;
+
+            case 3:
+                cout << "\nFirst complex number: " << c1;
+                cout << "\nSecond complex number: " << c2 << endl;
+                break;
+
+            case 4:
+                c3 = c1 + c2;
+                cout << "\nAddition is: " << c3 << endl;
+                break;
+
+            case 5:
+                c4 = c1 * c2;
+                cout << "\nMultiplication is: " << c4 << endl;
+                break;
+
+            case 6:
+                cout << "\nExiting the program...\n";
+                break;
+
+            default:
+                cout << "\nWrong choice! Please try again.\n";
+        }
+    } while (ch != 6);
+
+    return 0;
+}

@@ -1,0 +1,59 @@
+// program 1
+
+#include <map>
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    // map declaration
+    map<int, string> mymap;  // Mapping integers to strings
+    mymap[1] = "Hi";
+    mymap[2] = "This";
+    mymap[3] = "is";
+    mymap[4] = "DYP";
+
+    // using operator[] to print string
+    cout << mymap[4];  // Output: DYP
+    return 0;
+}
+
+
+// program 2
+
+#include <iostream>
+#include <map>
+#include <string>
+using namespace std;
+
+int main() {
+    typedef map<string, int> mapType;
+    mapType populationMap;
+
+    // Inserting key-value pairs into the map
+    populationMap.insert(pair<string, int>("Maharashtra", 7026357));
+    populationMap.insert(pair<string, int>("Rajasthan", 6578936));
+    populationMap.insert(pair<string, int>("Karanataka", 6678993));
+    populationMap.insert(pair<string, int>("Punjab", 5789032));
+    populationMap.insert(pair<string, int>("West Bengal", 6676291));
+
+    // Display the size of the map
+    cout << "========Population of states in India==========\n";
+    cout << "\nSize of populationMap: " << populationMap.size() << "\n";
+
+    // Searching for a state's population
+    string state_name;
+    cout << "\nEnter the name of the state: ";
+    cin >> state_name;
+
+    mapType::iterator iter = populationMap.find(state_name);
+    if (iter != populationMap.end())
+        cout << state_name << "'s population is " << iter->second << "\n";
+    else
+        cout << "Key is not in populationMap\n";
+
+    // Clear the map
+    populationMap.clear();
+    return 0;
+}
+

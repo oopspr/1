@@ -1,0 +1,76 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class publication {
+private:
+    string title;
+    float price;
+
+public:
+    void getdata() {
+        cout << "Enter title of publication: ";
+        cin.ignore(); // Clear buffer before getline
+        getline(cin, title);
+        cout << "Enter price of publication: ";
+        cin >> price;
+    }
+
+    void putdata() {
+        cout << "Publication title: " << title << endl;
+        cout << "Publication price: " << price << endl;
+    }
+};
+
+class book : public publication {
+private:
+    int pagecount;
+
+public:
+    void getdata() {
+        publication::getdata(); // Call base class getdata
+        cout << "Enter book page count: ";
+        cin >> pagecount;
+    }
+
+    void putdata() {
+        publication::putdata(); // Call base class putdata
+        cout << "Book page count: " << pagecount << endl;
+    }
+};
+
+class tape : public publication {
+private:
+    float ptime;
+
+public:
+    void getdata() {
+        publication::getdata(); // Call base class getdata
+        cout << "Enter tape's playing time (in minutes): ";
+        cin >> ptime;
+    }
+
+    void putdata() {
+        publication::putdata(); // Call base class putdata
+        cout << "Tape's playing time: " << ptime << " minutes" << endl;
+    }
+};
+
+int main() {
+    book b;
+    tape t;
+
+    cout << "Enter details for book:\n";
+    b.getdata();
+
+    cout << "\nEnter details for tape:\n";
+    t.getdata();
+
+    cout << "\nDisplaying book details:\n";
+    b.putdata();
+
+    cout << "\nDisplaying tape details:\n";
+    t.putdata();
+
+    return 0;
+}
