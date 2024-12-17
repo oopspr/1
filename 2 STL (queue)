@@ -1,0 +1,73 @@
+#include <iostream>
+#include <list>
+using namespace std;
+
+class Queue {
+public:
+    int a;
+    list<int> q;
+
+    void push() {
+        cout << "\nEnter a number: ";
+        cin >> a;
+        q.push_back(a);
+        cout << a << " has been added to the queue.\n";
+    }
+
+    void displayQueue() {
+        if (q.empty()) {
+            cout << "\nThe queue is empty.\n";
+            return;
+        }
+
+        cout << "\nThe elements in the queue are:\n";
+        for (list<int>::iterator itr = q.begin(); itr != q.end(); ++itr) {
+            cout << *itr << "\t";
+        }
+        cout << endl;
+    }
+
+    void pop() {
+        if (q.empty()) {
+            cout << "\nThe queue is empty. Nothing to pop.\n";
+            return;
+        }
+
+        int frontElement = q.front();
+        q.pop_front();
+        cout << "\nThe element popped out of the queue is: " << frontElement << endl;
+    }
+};
+
+int main() {
+    Queue q;
+    int choice;
+    char ans;
+
+    do {
+        cout << "\n1. Add element"
+             << "\n2. Delete element"
+             << "\n3. Display queue elements"
+             << "\nEnter the operation you want to perform: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                q.push();
+                break;
+            case 2:
+                q.pop();
+                break;
+            case 3:
+                q.displayQueue();
+                break;
+            default:
+                cout << "\nInvalid choice! Please select a valid option.\n";
+        }
+
+        cout << "\nDo you want to perform any other operation? (Y/N): ";
+        cin >> ans;
+    } while (ans == 'Y' || ans == 'y');
+
+    return 0;
+}
