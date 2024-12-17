@@ -16,7 +16,6 @@ public:
         y = b;
     }
 
-    // Overloading + operator
     complex operator+(complex c) {
         complex temp;
         temp.x = x + c.x;
@@ -24,7 +23,6 @@ public:
         return temp;
     }
 
-    // Overloading * operator
     complex operator*(complex c) {
         complex temp;
         temp.x = (x * c.x) - (y * c.y);
@@ -32,13 +30,11 @@ public:
         return temp;
     }
 
-    // Friend function to overload << for output
     friend ostream &operator<<(ostream &out, const complex &d) {
         out << d.x << " + " << d.y << "i";
         return out;
     }
 
-    // Friend function to overload >> for input
     friend istream &operator>>(istream &input, complex &num) {
         cout << "Enter real and imaginary parts: ";
         input >> num.x >> num.y;
