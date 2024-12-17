@@ -1,0 +1,73 @@
+#include <iostream>
+#include <list>
+using namespace std;
+
+class Stack {
+    list<int> s;  // List to represent the stack
+
+public:
+    // Push an element into the stack
+    void push() {
+        int number;
+        cout << "Enter a number: ";
+        cin >> number;
+        s.push_back(number);
+        cout << number << " added to the stack.\n";
+    }
+
+    // Pop the top element from the stack
+    void pop() {
+        if (s.empty()) {
+            cout << "The stack is empty. Nothing to pop.\n";
+            return;
+        }
+        cout << "Popped element: " << s.back() << endl;
+        s.pop_back();
+    }
+
+    // Display all elements in the stack
+    void display() {
+        if (s.empty()) {
+            cout << "The stack is empty.\n";
+            return;
+        }
+        cout << "Stack elements (top to bottom): ";
+        for (list<int>::iterator it = s.begin(); it != s.end(); ++it) {  // Use explicit type
+            cout << *it << " ";
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    Stack stack;
+    int choice;
+
+    do {
+        cout << "\n1. Add element"
+             << "\n2. Delete element"
+             << "\n3. Display stack"
+             << "\n4. Exit"
+             << "\nEnter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                stack.push();
+                break;
+            case 2:
+                stack.pop();
+                break;
+            case 3:
+                stack.display();
+                break;
+            case 4:
+                cout << "Exiting the program.!\n";
+                break;
+            default:
+                cout << "Invalid choice! Try again.\n";
+        }
+    } while (choice != 4);
+
+    return 0;
+}
